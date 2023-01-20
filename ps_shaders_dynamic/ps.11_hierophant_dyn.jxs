@@ -45,6 +45,9 @@ void main(void)
 <![CDATA[
 #version 330 core
 
+#define S (1. + sin(iTime) / 4.)
+#define C (1. + cos(iTime) / 4.)
+
 const float PI = 3.14159;
 
 in jit_PerVertex
@@ -55,6 +58,14 @@ layout (location = 0) out vec4 outColor;
 
 uniform vec2 iResolution;
 uniform float iTime;
+
+// Aliasing is apparent when things move. The original Pixel
+// Spirit cards use `step` everywhere. Change most of them to
+// smoothstep for anti-aliasing. Some later icons still need
+// regular `step` due to their idiosyncratic usages
+float sstep(float a, float b) {
+    return smoothstep(a - .005, a + .005, b);
+}
 
 vec2 getOrientation(vec2 st)
 {
@@ -108,14 +119,14 @@ void main(void)
 	// From Patrico Gonzalez https://github.com/patriciogonzalezvivo/PixelSpiritDeck/tree/master/00-elements
 	st = getOrientation(st); // Adjusts the screenspace according to whether the viewport is protrait or landscape?
 
-	float rect = rectSDF(st, vec2(1.));
-	color += fill(rect,.5);
-	float cross = crossSDF(st,1.);
-	color *= step(.5,fract(cross*4.));
-	color *= step(1.,cross);
-	color += fill(cross,.5);
-	color += stroke(rect,.65,.05);
-	color += stroke(rect,.75,.025);
+	float rect = rectSDF(st, vec2(1));
+	color = fill(rect, .5);
+	float cross = crossSDF(st, 1.);
+	color *= sstep(.5, fract(cross * 3. + iTime));
+	color *= sstep(1., cross);
+	color += fill(cross, .5);
+	color += stroke(rect, .65, .05);
+	color += stroke(rect, .75, .025);
 
 	outColor = vec4(color,1.);
 }

@@ -45,6 +45,9 @@ void main(void)
 <![CDATA[
 #version 330 core
 
+#define S (1. + sin(iTime) / 4.)
+#define C (1. + cos(iTime) / 4.)
+
 const float PI = 3.14159;
 const float TAU = PI * 2.;
 const float QTR_PI = PI / 4.;
@@ -57,6 +60,14 @@ layout (location = 0) out vec4 outColor;
 
 uniform vec2 iResolution;
 uniform float iTime;
+
+// Aliasing is apparent when things move. The original Pixel
+// Spirit cards use `step` everywhere. Change most of them to
+// smoothstep for anti-aliasing. Some later icons still need
+// regular `step` due to their idiosyncratic usages
+float sstep(float a, float b) {
+    return smoothstep(a - .005, a + .005, b);
+}
 
 vec2 getOrientation(vec2 st)
 {
@@ -182,14 +193,20 @@ void main(void)
 	// From Patrico Gonzalez https://github.com/patriciogonzalezvivo/PixelSpiritDeck/tree/master/00-elements
 	st = getOrientation(st); // Adjusts the screenspace according to whether the viewport is protrait or landscape?
 
-	st.y = 1.-st.y;
-	float s = .25;
-	float t1 = polySDF(st+vec2(.0,.175),3);
-	float t2 = polySDF(st+vec2(.1,.0),3);
-	float t3 = polySDF(st-vec2(.1,.0),3);
-	color += stroke(t1,s,.08)+stroke(t2,s,.08)+stroke(t3,s,.08);
-	float bridges = mix(mix(t1,t2,step(.5,st.y)),mix(t3,t2,step(.5,st.y)),step(.5,st.x));
-	color = bridge(color,bridges,s,.08);
+	st.y = 1. - st.y;
+	float s = .25 * C*1.3;
+	float t1 = polySDF(st + vec2(.0, .175), 3);
+	float t2 = polySDF(st + vec2(.1, .0), 3);
+	float t3 = polySDF(st - vec2(.1, .0), 3);
+	color = stroke(t1, s, .08) +
+					stroke(t2, s, .08) +
+					stroke(t3, s, .08);
+	float bridges = mix(
+			mix(t1, t2, step(.5, st.y)),
+			mix(t3, t2, step(.5, st.y)),
+			step(.5, st.x)
+	);
+	color = bridge(color, bridges, s, .08);
 
 	outColor = vec4(color,1.);
 }

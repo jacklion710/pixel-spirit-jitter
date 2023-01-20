@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 867.0, 362.0, 420.0, 481.0 ],
+		"rect" : [ 867.0, 362.0, 983.0, 569.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -110,7 +110,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 95.5, 37.0, 353.0, 42.0 ],
+					"patching_rect" : [ 95.5, 37.0, 353.0, 43.0 ],
 					"text" : "Interface for exploring Pixel Spirit shaders in max"
 				}
 
@@ -124,7 +124,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 13.0, 83.0, 434.0, 100.0 ],
+					"patching_rect" : [ 13.0, 83.0, 434.0, 103.0 ],
 					"text" : "Installation instructions:\nPlace the folder 'ps_shaders' in the max search path. I reccomend the max library directory\n\nWindows: C:/Users/[username]/Documents/Max 8/Library\n\nMac: /Users/[username]/Documents/Max 8/Library"
 				}
 
@@ -138,7 +138,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 13.0, 1.0, 439.0, 78.0 ],
+					"patching_rect" : [ 13.0, 1.0, 439.0, 80.0 ],
 					"text" : "Pixel Spirit transcription for Jitter"
 				}
 
@@ -732,7 +732,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 634.0, 180.0, 128.0, 35.0 ],
+					"patching_rect" : [ 634.0, 180.0, 128.0, 36.0 ],
 					"text" : "jit.mo.time @speed 1. @enable 1"
 				}
 
@@ -998,8 +998,8 @@
 		}
 ,
 		"dependency_cache" : [ 			{
-				"name" : "jit.mo.time.mxo",
-				"type" : "iLaX"
+				"name" : "jit.mo.time.mxe64",
+				"type" : "mx64"
 			}
  ],
 		"autosave" : 0

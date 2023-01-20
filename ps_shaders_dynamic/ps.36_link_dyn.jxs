@@ -45,6 +45,9 @@ void main(void)
 <![CDATA[
 #version 330 core
 
+#define S (1. + sin(iTime) / 4.)
+#define C (1. + cos(iTime) / 4.)
+
 const float PI = 3.14159;
 const float TAU = PI * 2.;
 const float QTR_PI = PI / 4.;
@@ -57,6 +60,14 @@ layout (location = 0) out vec4 outColor;
 
 uniform vec2 iResolution;
 uniform float iTime;
+
+// Aliasing is apparent when things move. The original Pixel
+// Spirit cards use `step` everywhere. Change most of them to
+// smoothstep for anti-aliasing. Some later icons still need
+// regular `step` due to their idiosyncratic usages
+float sstep(float a, float b) {
+    return smoothstep(a - .005, a + .005, b);
+}
 
 vec2 getOrientation(vec2 st)
 {
@@ -183,15 +194,15 @@ void main(void)
 	st = getOrientation(st); // Adjusts the screenspace according to whether the viewport is protrait or landscape?
 
 	st = st.yx;
-	st.x = mix(1.-st.x,st.x,step(.5,st.y));
-	vec2 o = vec2(.1,.0);
-	vec2 s = vec2(1.);
-	float a = radians(45.);
-	float l = rectSDF(rotate(st+o,a),s);
-	float r = rectSDF(rotate(st-o,-a),s);
-	color += stroke(l,.3,.1);
-	color = bridge(color,r,.3,.1);
-	color += fill(rhombSDF(abs(st.yx-vec2(.0,.5))),.1);
+	st.x = mix(1. - st.x, st.x, step(.5, st.y));
+	vec2 o = vec2(.1, .0);
+	vec2 s = vec2(1.) * C;
+	float a = radians(45.) + iTime/2.;
+	float l = rectSDF(rotate(st + o, a), s);
+	float r = rectSDF(rotate(st - o, -a), s);
+	color = stroke(l, .3, .1);
+	color = bridge(color, r, .3, .1);
+	color += fill(rhombSDF(abs(st.yx - vec2(.0, .5))), .1);
 
 	outColor = vec4(color,1.);
 }

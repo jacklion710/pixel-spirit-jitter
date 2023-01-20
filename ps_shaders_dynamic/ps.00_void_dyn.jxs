@@ -42,6 +42,9 @@ void main(void)
 <![CDATA[
 #version 330 core
 
+#define S (1. + sin(iTime) / 4.)
+#define C (1. + cos(iTime) / 4.)
+
 in jit_PerVertex {
 	vec2 texcoord;
 } jit_in;
