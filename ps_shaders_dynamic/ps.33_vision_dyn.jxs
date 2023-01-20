@@ -173,7 +173,7 @@ float raySDF(vec2 st, int N)
 
 void main(void)
 {
-	vec3 color = vec3(0.);
+	float color = 0.;
 	vec2 st = gl_FragCoord.xy/iResolution;
 
 	// From Patrico Gonzalez https://github.com/patriciogonzalezvivo/PixelSpiritDeck/tree/master/00-elements
@@ -185,11 +185,11 @@ void main(void)
 	color = stroke(v2, 1., .05);
 	st = rotate(st, iTime/2.);
 	color += fill(v2, 1.) * stroke(circleSDF(st - vec2(.05)), .3 , .05);
-	color += fill(raysSDF(st, 50), .2) *
+	color += fill(raySDF(st, 50), .2) *
 			fill(v1, 1.25) *
 			sstep(1., v2);
 
-	outColor = vec4(color,1.);
+	outColor = vec4(vec3(color),1.);
 }
 
 ]]>

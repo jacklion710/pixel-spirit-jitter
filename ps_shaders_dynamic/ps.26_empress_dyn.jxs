@@ -151,7 +151,7 @@ float polySDF(vec2 st, int V)
 
 void main(void)
 {
-	vec3 color = vec3(0.);
+	float color = 0.;
 	vec2 st = gl_FragCoord.xy/iResolution;
 
 	// From Patrico Gonzalez https://github.com/patriciogonzalezvivo/PixelSpiritDeck/tree/master/00-elements
@@ -163,7 +163,7 @@ void main(void)
 	color = fill(d1, .75) * fill(fract(d1 * 5. - iTime/2.), .5);
 	color -= fill(d1, .6) * fill(fract(d2 * 4.9 - iTime/2.), .45);
 
-	outColor = vec4(color,1.);
+	outColor = vec4(vec3(color),1.);
 }
 
 ]]>

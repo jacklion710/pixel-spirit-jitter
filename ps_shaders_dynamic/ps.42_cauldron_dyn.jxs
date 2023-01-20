@@ -187,7 +187,7 @@ vec3 bridge(vec3 c,float d,float s,float w)
 
 void main(void)
 {
-	vec3 color = vec3(0.);
+	float color = 0.;
 	vec2 st = gl_FragCoord.xy/iResolution;
 
 	// From Patrico Gonzalez https://github.com/patriciogonzalezvivo/PixelSpiritDeck/tree/master/00-elements
@@ -203,7 +203,7 @@ void main(void)
 			color += stroke(vsc, .45 * S, .05);
 	}
 
-	outColor = vec4(color,1.);
+	outColor = vec4(vec3(color),1.);
 }
 
 ]]>

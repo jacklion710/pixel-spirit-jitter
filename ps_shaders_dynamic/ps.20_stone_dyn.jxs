@@ -141,7 +141,7 @@ vec2 rotate(vec2 st, float a)
 
 void main(void)
 {
-	vec3 color = vec3(0.);
+	float color = 0.;
 	vec2 st = gl_FragCoord.xy/iResolution;
 
 	// From Patrico Gonzalez https://github.com/patriciogonzalezvivo/PixelSpiritDeck/tree/master/00-elements
@@ -152,7 +152,7 @@ void main(void)
 	color *= 1. - stroke(st.x, .5 * S, .02);
 	color *= 1. - stroke(st.y, .5 * C, .02);
 
-	outColor = vec4(color,1.);
+	outColor = vec4(vec3(color),1.);
 }
 
 ]]>

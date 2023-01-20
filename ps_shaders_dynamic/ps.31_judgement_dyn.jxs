@@ -173,21 +173,21 @@ float raySDF(vec2 st, int N)
 
 void main(void)
 {
-	vec3 color = vec3(0.);
+	float color = 0.;
 	vec2 st = gl_FragCoord.xy/iResolution;
 
 	// From Patrico Gonzalez https://github.com/patriciogonzalezvivo/PixelSpiritDeck/tree/master/00-elements
 	st = getOrientation(st); // Adjusts the screenspace according to whether the viewport is protrait or landscape?
 
 	color = flip(
-			stroke(raysSDF(rotate(st, -iTime/8.), 28), .5, .2),
+			stroke(raySDF(rotate(st, -iTime/8.), 28), .5, .2),
 			fill(st.y, .5)
 	);
 	float rect = rectSDF(st, vec2(1) * S);
 	color *= sstep(.25, rect);
 	color += fill(rect, .2);
 
-	outColor = vec4(color,1.);
+	outColor = vec4(vec3(color),1.);
 }
 
 ]]>

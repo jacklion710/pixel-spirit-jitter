@@ -130,7 +130,7 @@ float triSDF(vec2 st)
 
 void main(void)
 {
-	vec3 color = vec3(0.);
+	float color = 0.;
 	vec2 st = gl_FragCoord.xy/iResolution;
 
 	// From Patrico Gonzalez https://github.com/patriciogonzalezvivo/PixelSpiritDeck/tree/master/00-elements
@@ -141,7 +141,7 @@ void main(void)
 	color = fill(triSDF(st), .7);
 	color -= fill(triSDF(ts), .36);
 
-	outColor = vec4(color,1.);
+	outColor = vec4(vec3(color),1.);
 }
 ]]>
 </program>

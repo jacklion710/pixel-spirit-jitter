@@ -157,7 +157,7 @@ float hexSDF(vec2 st)
 
 void main(void)
 {
-	vec3 color = vec3(0.);
+	float color = 0.;
 	vec2 st = gl_FragCoord.xy/iResolution;
 
 	// From Patrico Gonzalez https://github.com/patriciogonzalezvivo/PixelSpiritDeck/tree/master/00-elements
@@ -170,7 +170,7 @@ void main(void)
 	color += fill(hexSDF(st - vec2(-.06, .1) * S), .15);
 	color += fill(hexSDF(st - vec2(.11, 0.) * S), .15);
 
-	outColor = vec4(color,1.);
+	outColor = vec4(vec3(color),1.);
 }
 
 ]]>

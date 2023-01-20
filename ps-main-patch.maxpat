@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 867.0, 362.0, 983.0, 569.0 ],
+		"rect" : [ 658.0, 291.0, 983.0, 569.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -68,7 +68,7 @@
 					"fontname" : "Arial",
 					"fontsize" : 13.0,
 					"id" : "obj-25",
-					"items" : [ "00_void_dyn", ",", "01_justice_dyn", ",", "02_strength_dyn", ",", "03_death_dyn", ",", "04_wall_dyn", ",", "05_temperance_dyn", ",", "06_branch_dyn", ",", "07_hangedMan_dyn", ",", "08_highPriestess_dyn", ",", "09_moon_dyn", ",", "10_emperor_dyn", ",", "11_hierophant_dyn", ",", "12_tower_dyn", ",", "13_merge_dyn", ",", "14_hope_dyn", ",", "15_temple_dyn", ",", "16_summit_dyn", ",", "17_diamond_dyn", ",", "18_hermit_dyn", ",", "19_intuition_dyn", ",", "20_stone_dyn", ",", "21_mountain_dyn", ",", "22_shadow_dyn", ",", "23_opposite", ",", "_dyn", "24_oak_dyn", ",", "25_ripples_dyn", ",", "26_empress_dyn", ",", "27_bundle_dyn", ",", "28_devil_dyn", ",", "29_sun_dyn", ",", "30_star_dyn", ",", "31_judgement_dyn", ",", "32_wheelOfFortune_dyn", ",", "33_vision_dyn", ",", "34_lovers_dyn", ",", "35_magician_dyn", ",", "36_link_dyn", ",", "37_holdingTogether_dyn", ",", "38_chariot_dyn", ",", "39_loop_dyn", ",", "40_turningPoint_dyn", ",", "41_trinity_dyn", ",", "42_cauldron_dyn", ",", "43_elders_dyn", ",", "44_core_dyn", ",", "45_innerTruth_dyn", ",", "46_world_dyn", ",", "47_fool_dyn", ",", "48_enlightenment_dyn", ",", "49_elements_dyn" ],
+					"items" : [ "00_void_dyn", ",", "01_justice_dyn", ",", "02_strength_dyn", ",", "03_death_dyn", ",", "04_wall_dyn", ",", "05_temperance_dyn", ",", "06_branch_dyn", ",", "07_hangedMan_dyn", ",", "08_highPriestess_dyn", ",", "09_moon_dyn", ",", "10_emperor_dyn", ",", "11_hierophant_dyn", ",", "12_tower_dyn", ",", "13_merge_dyn", ",", "14_hope_dyn", ",", "15_temple_dyn", ",", "16_summit_dyn", ",", "17_diamond_dyn", ",", "18_hermit_dyn", ",", "19_intuition_dyn", ",", "20_stone_dyn", ",", "21_mountain_dyn", ",", "22_shadow_dyn", ",", "23_opposite_dyn", ",", "24_oak_dyn", ",", "25_ripples_dyn", ",", "26_empress_dyn", ",", "27_bundle_dyn", ",", "28_devil_dyn", ",", "29_sun_dyn", ",", "30_star_dyn", ",", "31_judgement_dyn", ",", "32_wheelOfFortune_dyn", ",", "33_vision_dyn", ",", "34_lovers_dyn", ",", "35_magician_dyn", ",", "36_link_dyn", ",", "37_holdingTogether_dyn", ",", "38_chariot_dyn", ",", "39_loop_dyn", ",", "40_turningPoint_dyn", ",", "41_trinity_dyn", ",", "42_cauldron_dyn", ",", "43_elders_dyn", ",", "44_core_dyn", ",", "45_innerTruth_dyn", ",", "46_world_dyn", ",", "47_fool_dyn", ",", "48_enlightenment_dyn", ",", "49_elements_dyn" ],
 					"maxclass" : "umenu",
 					"numinlets" : 1,
 					"numoutlets" : 3,

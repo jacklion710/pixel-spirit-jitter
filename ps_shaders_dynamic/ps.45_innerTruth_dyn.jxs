@@ -192,7 +192,7 @@ vec2 scale(vec2 st, vec2 s)
 
 void main(void)
 {
-	vec3 color = vec3(0.);
+	float color = 0.;
 	vec2 st = gl_FragCoord.xy/iResolution;
 
 	// From Patrico Gonzalez https://github.com/patriciogonzalezvivo/PixelSpiritDeck/tree/master/00-elements
@@ -209,7 +209,7 @@ void main(void)
 	float shape = rhombSDF(uv_f);
 	color += fill(shape, .9) * sstep(.75, 1. - r);
 
-	outColor = vec4(color,1.);
+	outColor = vec4(vec3(color),1.);
 }
 
 ]]>

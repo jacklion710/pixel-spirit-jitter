@@ -209,7 +209,7 @@ float spiralSDF(vec2 st, float t)
 
 void main(void)
 {
-	vec3 color = vec3(0.);
+	float color = 0.;
 	vec2 st = gl_FragCoord.xy/iResolution;
 
 	// From Patrico Gonzalez https://github.com/patriciogonzalezvivo/PixelSpiritDeck/tree/master/00-elements
@@ -226,7 +226,7 @@ void main(void)
 	color *= 1. - fill(triSDF(st-vec2(0, .02)), .13);
 	color += stroke(circleSDF(st), .8, .08);
 
-	outColor = vec4(color,1.);
+	outColor = vec4(vec3(color),1.);
 }
 
 ]]>
