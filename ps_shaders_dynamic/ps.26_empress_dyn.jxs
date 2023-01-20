@@ -1,0 +1,161 @@
+<jittershader name="The Empress">
+<description>Pixel Spirits 'The Empress' card</description>
+
+<param name="modelViewProjectionMatrix" type="mat4" state="MODELVIEW_PROJECTION_MATRIX" />
+<param name="textureMatrix0" type="mat4" state="TEXTURE0_MATRIX" />
+<param name="position" type="vec3" state="POSITION" />
+<param name="texcoord" type="vec2" state="TEXCOORD" />
+<param name="iResolution" type="vec2" state="VIEWPORT" default="822. 1122." />
+<param name="iTime" type="float"  default="1." />
+
+<language name="glsl" version="1.5">
+
+<bind param="modelViewProjectionMatrix" program="vp" />
+<bind param="textureMatrix0" program="vp" />
+<bind param="position" program="vp" />
+<bind param="texcoord" program="vp" />
+<bind param="iResolution" program="fp" />
+<bind param="iTime" program="fp" />
+
+<program name="vp" type="vertex"  >
+<![CDATA[
+#version 330 core
+
+in vec3 position;
+in vec2 texcoord;
+
+out jit_PerVertex
+{
+	vec2 texcoord;
+} jit_out;
+
+uniform mat4 modelViewProjectionMatrix;
+uniform mat4 textureMatrix0;
+
+void main(void)
+{
+	gl_Position = modelViewProjectionMatrix*vec4(position, 1.);
+	jit_out.texcoord = vec2(textureMatrix0*vec4(texcoord, 0., 1.));
+}
+]]>
+</program>
+
+<program name="fp" type="fragment"  >
+
+<![CDATA[
+#version 330 core
+
+const float PI = 3.14159;
+const float TAU = PI * 2.;
+
+in jit_PerVertex
+{
+	vec2 texcoord;
+} jit_in;
+layout (location = 0) out vec4 outColor;
+
+uniform vec2 iResolution;
+uniform float iTime;
+
+vec2 getOrientation(vec2 st)
+{
+	st = (st-.5)*1.1912+.5;
+	if (iResolution.y > iResolution.x )
+	{
+  	st.y *= iResolution.y/iResolution.x;
+  	st.y -= (iResolution.y*.5-iResolution.x*.5)/iResolution.x;
+	}
+	else
+	{
+  	st.x *= iResolution.x/iResolution.y;
+  	st.x -= (iResolution.x*.5-iResolution.y*.5)/iResolution.y;
+	}
+	return st;
+}
+
+float stroke(float x, float s, float w)
+{
+	float d = step(s,x+w*.5) - step(s,x-w*.5);
+	return clamp(d,0.,1.);
+}
+
+float circleSDF(vec2 st)
+{
+	return length(st-.5)*2.;
+}
+
+float fill(float x, float size)
+{
+	return 1.-step(size, x);
+}
+
+float rectSDF(vec2 st, vec2 s)
+{
+	st = st*2.-1.;
+	return max(abs(st.x/s.x), abs(st.y/s.y));
+}
+
+float crossSDF(vec2 st, float s)
+{
+	vec2 size = vec2(.25, s);
+	return min(rectSDF(st,size.xy),rectSDF(st,size.yx));
+}
+
+float flip(float v, float pct)
+{
+	return mix(v,1.-v,pct);
+}
+
+float vesicaSDF(vec2 st, float w)
+{
+	vec2 offset = vec2(w*.5,0.);
+	return max(circleSDF(st-offset),circleSDF(st+offset));
+}
+
+float triSDF(vec2 st)
+{
+	st = (st*2.-1.)*2.;
+	return max(abs(st.x)*0.866025+st.y*0.5,-st.y*0.5);
+}
+
+float rhombSDF(vec2 st)
+{
+	return max(triSDF(st), triSDF(vec2(st.x,1.-st.y)));
+}
+
+vec2 rotate(vec2 st, float a)
+{
+	st = mat2(cos(a),-sin(a),sin(a),cos(a))*(st-.5);
+	return st+.5;
+}
+
+float polySDF(vec2 st, int V)
+{
+	st = st*2.-1.;
+	float a = atan(st.x,st.y)+PI;
+	float r = length(st);
+	float v = TAU/float(V);
+	return cos(floor(.5+a/v)*v-a)*r;
+}
+
+void main(void)
+{
+	vec3 color = vec3(0.);
+	vec2 st = gl_FragCoord.xy/iResolution;
+
+	// From Patrico Gonzalez https://github.com/patriciogonzalezvivo/PixelSpiritDeck/tree/master/00-elements
+	st = getOrientation(st); // Adjusts the screenspace according to whether the viewport is protrait or landscape?
+
+	float d1 = polySDF(st,5);
+	vec2 ts = vec2(st.x,1.-st.y);
+	float d2 = polySDF(ts,5);
+	color += fill(d1,.75)*fill(fract(d1*5.),.5);
+	color -= fill(d1,.6)*fill(fract(d2*4.9),.45);
+
+	outColor = vec4(color,1.);
+}
+
+]]>
+</program>
+</language>
+</jittershader>
